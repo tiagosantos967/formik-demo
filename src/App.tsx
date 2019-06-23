@@ -1,23 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Field } from 'formik';
+
+import { 
+  Form,
+  CustomInputComponent,
+  CustomSubmitComponent 
+} from './components';
 import './App.css';
 
 const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Form
+          onSubmit={(values) => {
+            console.log('form submit!', values)
+          }}
+          initialValues={{
+            email: '',
+            firstName: 'Tiago',
+            lastName: 'Santos'
+          }}
         >
-          Learn React
-        </a>
+          <Field name="firstName" component={CustomInputComponent} />
+          <Field type="email" name="email" placeholder="Email" />
+          <div>
+            <div>
+              <Field name="lastName" component={CustomInputComponent} />
+            </div>
+            <Field component="select" name="color">
+              <option value="red">Red</option>
+              <option value="green">Green</option>
+              <option value="blue">Blue</option>
+            </Field> 
+          </div>
+          <button type="submit">Submit</button>
+          <CustomSubmitComponent />
+        </Form>
       </header>
     </div>
   );
